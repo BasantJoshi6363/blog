@@ -1,10 +1,13 @@
 import React from 'react'
-import Header from '../../component/Header'
+import Navbar from '../../component/Navbar'
+import AllBlogs from '../../component/AllBlogs'
 
 const Home = () => {
   return (
     <div>
-        <Header />
+        <Navbar />
+        <AllBlogs />
+
     </div>
   )
 }
