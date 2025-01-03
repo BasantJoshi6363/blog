@@ -13,6 +13,10 @@ const blogSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    category: {
+       type : String,
+       Option : ["Technology", "Health", "Science", "Sports", "Entertainment","Politics"]
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"

@@ -4,7 +4,11 @@ import { Blog } from '../models/blog.model.js';
 export const createBlog = async (req, res) => {
     try {
         const id = req.user.id;
-        const { title, content, image } = req.body;
+        const { title, content, category, image } = req.body;
+        const validCategory = ["Technology", "Health", "Science", "Sports", "Entertainment", "Politics"];
+        if (!validCategory.includes(category)) {
+            return res.status(400).json({ error: "Invalid category" });
+        }
         const user = req.user;
         const blog = await Blog.create({ title, content, image, user: id });
         res.status(201).json({ success: true, blog });
