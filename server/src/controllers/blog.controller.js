@@ -5,12 +5,7 @@ export const createBlog = async (req, res) => {
     try {
         const id = req.user.id;
         const { title, content, category, image } = req.body;
-        const validCategory = ["Technology", "Health", "Science", "Sports", "Entertainment", "Politics"];
-        if (!validCategory.includes(category)) {
-            return res.status(400).json({ error: "Invalid category" });
-        }
-        const user = req.user;
-        const blog = await Blog.create({ title, content, image, user: id });
+        const blog = await Blog.create({ title, content, image,category, user: id });
         res.status(201).json({ success: true, blog });
     } catch (error) {
         console.log(error);
