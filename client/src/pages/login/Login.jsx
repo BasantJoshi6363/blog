@@ -1,12 +1,16 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios"
-import { AuthContext } from '../../context/AuthContext';
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const { isAuth, setIsAuth } = useContext(AuthContext)
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  useEffect(()=>{
+    const token = localStorage.getItem("token")
+    if(token){
+      navigate("/")
+    }
+  },[])
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent page reload on form submission
 
@@ -17,9 +21,8 @@ const Login = () => {
     };
     try {
       const resp = await axios.post("http://localhost:5000/api/v1/login", data);
-      setIsAuth(resp.data.token)
+      localStorage.setItem("token", resp.data.token)
       navigate("/")
-      console.log("first")
 
     } catch (error) {
       console.log(error)

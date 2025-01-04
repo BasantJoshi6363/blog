@@ -1,23 +1,41 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Home from './pages/home/Home'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import Login from './pages/login/Login'
 import Register from './pages/register/Register'
-import { AuthContext } from './context/AuthContext'
+import ProtectedRoute from './component/ProtectedRoute'
+import { IsAuth } from './context/Authenticated'
+function Logout(){
+  const navigate = useNavigate()
+  useEffect(()=>{
+    localStorage.setItem("token","")
+    navigate("/login")
+  },[])
+ 
+}
 
 const App = () => {
-  const [isAuth, setIsAuth] = useState("")
+  const navigate = useNavigate()
+  const [isAuth, setIsAuth] = useState()
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if(token===null && token===undefined && token===""){
+      navigate("/login")
+    }
+    setIsAuth(token)
+  }, [])
   return (
-    <div>
-      <AuthContext.Provider value={{ isAuth, setIsAuth }}>
-        
 
+    <div>
+      <IsAuth.Provider value={{ isAuth, setIsAuth }}>
         <Routes>
-          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/" element={<ProtectedRoute Component={Home} />} />
+          <Route path="/logout" element={<Logout/>}  />
         </Routes>
-      </AuthContext.Provider>
+      </IsAuth.Provider>
+
     </div>
   )
 }
