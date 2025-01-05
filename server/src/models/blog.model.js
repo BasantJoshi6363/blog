@@ -14,7 +14,8 @@ const blogSchema = new mongoose.Schema({
         required: true
     },
     category: {
-       type : String
+       type : String,
+       lowercase : true
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,

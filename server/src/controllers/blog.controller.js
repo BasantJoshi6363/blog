@@ -5,7 +5,9 @@ export const createBlog = async (req, res) => {
     try {
         const id = req.user.id;
         const { title, content, category, image } = req.body;
-        const blog = await Blog.create({ title, content, image, category, user: id });
+        const changed = category.split(" ").join("")
+        
+        const blog = await Blog.create({ title, content, image, category:changed, user: id });
         res.status(201).json({ success: true, blog });
     } catch (error) {
         console.log(error);
