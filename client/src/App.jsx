@@ -5,6 +5,7 @@ import Login from './pages/login/Login'
 import Register from './pages/register/Register'
 import ProtectedRoute from './component/ProtectedRoute'
 import { IsAuth } from './context/Authenticated'
+import Categories from './component/Categories'
 function Logout(){
   const navigate = useNavigate()
   useEffect(()=>{
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/" element={<ProtectedRoute Component={Home} />} />
           <Route path="/logout" element={<Logout/>}  />
+          <Route path='/cat/:category' element={<Categories/>}/>
         </Routes>
       </IsAuth.Provider>
 

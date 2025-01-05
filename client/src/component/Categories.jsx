@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import axios from "axios"
-const AllBlogs = () => {
+import Navbar from './Navbar';
+const Categories = () => {
+    console.log("hello world.")
     const [data, setData] = useState([]);
-
+    const cat = useParams()
     const fetchData = async () => {
         try {
-            const resp = await axios.get(`http://localhost:5000/blog/blogs`)
+            const resp = await axios.get(`http://localhost:5000/blog/blogs/${cat.category}`)
             setData(resp.data.blogs)
             console.log(resp.data)
         } catch (error) {
@@ -19,7 +21,7 @@ const AllBlogs = () => {
 
     return (
         <div>
-
+            <Navbar />
             <div className="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16">
 
                 <div className="border-b mb-5 flex justify-between text-sm">
@@ -47,7 +49,7 @@ const AllBlogs = () => {
                                     <a href="#!">
                                         <div
                                             className="text-xs absolute top-0 right-0 bg-indigo-600 px-4 py-2 text-white mt-3 mr-3 hover:bg-white hover:text-indigo-600 transition duration-500 ease-in-out">
-                                           {item.category}
+                                            {item.category}
                                         </div>
                                     </a>
                                 </div>
@@ -89,4 +91,4 @@ const AllBlogs = () => {
     )
 }
 
-export default AllBlogs
+export default Categories

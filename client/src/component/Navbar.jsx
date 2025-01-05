@@ -17,10 +17,16 @@ const Navbar = () => {
                         <Link to="/" className="mr-5 hover:text-gray-300">Home</Link>
                     </li>
                     <li className="list-none">
-                        <Link to="/sports" className="mr-5 hover:text-gray-300">Sports</Link>
+                        <Link to="/cat/sport" className="mr-5 hover:text-gray-300">Sports</Link>
                     </li>
                     <li className="list-none">
-                        <Link to="/politics" className="mr-5 hover:text-gray-300">Politics</Link>
+                        <Link to="/cat/politics" className="mr-5 hover:text-gray-300">Politics</Link>
+                    </li>
+                    <li className="list-none">
+                        <Link to="/cat/science" className="mr-5 hover:text-gray-300">Science</Link>
+                    </li>
+                    <li className="list-none">
+                        <Link to="/cat/Lifestyle" className="mr-5 hover:text-gray-300">Science</Link>
                     </li>
                     <li className="list-none">
                         {isAuth ? ( <Link to="/logout" className="bg-indigo-500 hover:text-indigo-500 hover:bg-white py-1 px-3">

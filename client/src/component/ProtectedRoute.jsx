@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { IsAuth } from '../context/Authenticated'
+import { useNavigate } from 'react-router-dom'
 
 const ProtectedRoute = (props) => {
-    console.log(props)
-    const {Component}  = props
+  console.log(props)
+  const navigate = useNavigate()
+  const { Component } = props
+  const { isAuth } = useContext(IsAuth)
   return (
     <div>
-        <Component />
+      {isAuth ? (<Component />) : (navigate("/login"))}
     </div>
   )
 }
