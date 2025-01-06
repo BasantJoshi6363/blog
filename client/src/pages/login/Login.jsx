@@ -6,7 +6,10 @@ const Login = () => {
   useEffect(()=>{
     const token = localStorage.getItem("token")
     if(token){
-      navigate("/")
+      useEffect(()=>{
+        navigate("/")
+      },[])
+      
     }
   },[])
   const [email, setEmail] = useState("");
