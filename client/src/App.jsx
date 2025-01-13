@@ -4,39 +4,36 @@ import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import Login from './pages/login/Login'
 import Register from './pages/register/Register'
 import ProtectedRoute from './component/ProtectedRoute'
-import { IsAuth } from './context/Authenticated'
 import Categories from './component/Categories'
-function Logout(){
-  const navigate = useNavigate()
-  useEffect(()=>{
-    localStorage.setItem("token","")
-    navigate("/login")
-  },[])
- 
-}
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import Logout from './component/Logout'
+
 
 const App = () => {
-  const navigate = useNavigate()
   const [isAuth, setIsAuth] = useState()
+  const navigate = useNavigate()
   useEffect(() => {
     const token = localStorage.getItem("token")
-    if(token===null && token===undefined && token===""){
-      navigate("/login")
+    if (!token) {
+      navigate("/")
     }
+
+
     setIsAuth(token)
-  }, [])
+  }, [navigate])
   return (
 
     <div>
-      <IsAuth.Provider value={{ isAuth, setIsAuth }}>
+      <ToastContainer />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/" element={<ProtectedRoute Component={Home} />} />
-          <Route path="/logout" element={<Logout/>}  />
-          <Route path='/cat/:category' element={<Categories/>}/>
+          <Route path="/logout" element={<Logout />} />
+          <Route path='/cat/:category' element={<Categories />} />
+          <Route path='/logout' element={<Logout />} />
         </Routes>
-      </IsAuth.Provider>
 
     </div>
   )

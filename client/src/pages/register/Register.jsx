@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { toastifyError, toastifySeccess } from '../../utils/toastifyHelper';
 const Register = () => {
   const navigate = useNavigate();
-    useEffect(()=>{
-      const token = localStorage.getItem("token")
-      if(token){
-        navigate("/")
-      }
-    },[])
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if (token) {
+      navigate("/")
+    }
+  }, [])
   const [name, setname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  
+
+
   const handleSubmit = async (e) => {
+    if (name == "" || email == "" || password == "") {
+      toastifyError("Fields are empty.")
+    }
     e.preventDefault(); // Prevent page reload on form submission
 
     // Prepare the data to be sent to the backend
@@ -24,14 +32,14 @@ const Register = () => {
     try {
       const resp = await axios.post("http://localhost:5000/api/v1/create", data);
       console.log(resp.data);
+      toastifySeccess("Register Successful.!")
       navigate("/login");
 
     } catch (error) {
-      console.log(error)
+      toastifyError(error.message)
     }
 
   }
-  useEffect(() => { }, [])
   return (
     <div className="flex h-screen bg-indigo-700">
       <div className="w-full max-w-xs m-auto bg-indigo-100 rounded p-5">

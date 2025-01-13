@@ -1,20 +1,27 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios"
+import { toastifyError, toastifySeccess } from '../../utils/toastifyHelper';
 const Login = () => {
   const navigate = useNavigate();
-  useEffect(()=>{
+  useEffect(() => {
     const token = localStorage.getItem("token")
-    if(token){
-      useEffect(()=>{
+    if (token) {
+      useEffect(() => {
         navigate("/")
-      },[])
-      
+      }, [])
+
     }
-  },[])
+  }, [])
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+
   const handleSubmit = async (e) => {
+
+    if (email == "" || password) {
+      toastifyError("Fields are empty.!!")
+    }
     e.preventDefault(); // Prevent page reload on form submission
 
     // Prepare the data to be sent to the backend
@@ -23,15 +30,18 @@ const Login = () => {
       password,
     };
     try {
+    
       const resp = await axios.post("http://localhost:5000/api/v1/login", data);
       localStorage.setItem("token", resp.data.token)
       navigate("/")
+      toastifySeccess("user login successful.!!")
 
     } catch (error) {
-      console.log(error)
+      toastifyError(error.message)
     }
 
   }
+ 
   return (
     <div className="flex h-screen bg-indigo-700">
       <div className="w-full max-w-xs m-auto bg-indigo-100 rounded p-5">
