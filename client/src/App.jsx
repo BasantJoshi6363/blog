@@ -13,15 +13,7 @@ import Logout from './component/Logout'
 const App = () => {
   const [isAuth, setIsAuth] = useState()
   const navigate = useNavigate()
-  useEffect(() => {
-    const token = localStorage.getItem("token")
-    if (!token) {
-      navigate("/")
-    }
-
-
-    setIsAuth(token)
-  }, [navigate])
+    
   return (
 
     <div>

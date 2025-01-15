@@ -4,12 +4,7 @@ import axios from 'axios'
 import { toastifyError, toastifySeccess } from '../../utils/toastifyHelper';
 const Register = () => {
   const navigate = useNavigate();
-  useEffect(() => {
-    const token = localStorage.getItem("token")
-    if (token) {
-      navigate("/")
-    }
-  }, [])
+
   const [name, setname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
